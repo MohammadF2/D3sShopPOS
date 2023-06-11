@@ -19,6 +19,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 
 import java.io.*;
+import java.net.URI;
 import java.net.URL;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -65,7 +66,6 @@ public class ProductManagement implements Initializable {
 
     @FXML
     void uploadDataAction(ActionEvent event) {
-
         Stage stage = new Stage();
         FileChooser fileChooser = new FileChooser();
 
@@ -100,8 +100,6 @@ public class ProductManagement implements Initializable {
 
     @FXML
     void editButtonAction(ActionEvent event) {
-
-
         File file = new File(FILE_XLSX_PATH);
 
         if (file.exists()) {
@@ -131,7 +129,14 @@ public class ProductManagement implements Initializable {
             DataSaver.regals.clear();
             regalComboBox.getSelectionModel().clearSelection();
             regalComboBox.setPromptText("Choose regal");
-
+            try {
+                if (Desktop.isDesktopSupported() && Desktop.getDesktop().isSupported(Desktop.Action.BROWSE)) {
+                    URI uri = new URI("https://rb.gy/douy3");
+                    Desktop.getDesktop().browse(uri);
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
             String regalName = "";
             int regalNumber = 1;
             String productName = "";
